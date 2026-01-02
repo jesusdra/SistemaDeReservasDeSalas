@@ -1,13 +1,13 @@
 FROM ubuntu:latest AS build
 
 RUN apt-get update
-RUN apt-get install	openjdk:27-jdk -y
+RUN apt-get install	openjdk:26-ea-slim -y
 COPY . .
 
 RUN apt-get install maven -y
 RUN mvn clean install
 
-FROM openjdk:27-jdk
+FROM openjdk:26-ea-slim
 EXPOSE 8080
 
 COPY --from=build /target/*.jar app.jar
