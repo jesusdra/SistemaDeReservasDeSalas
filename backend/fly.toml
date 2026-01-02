@@ -1,20 +1,23 @@
-services:
-  postgres:
-    container_name: api
-    image: postgres
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=api
-      - POSTGRES_MAX_CONNECTIONS=100
-      - POSTGRES_IDLE_IN_TRANSACTION_SESSION_TIMEOUT=60000
-      - POSTGRES_TCP_KEEPALIVES_IDLE=600
-      - POSTGRES_TCP_KEEPALIVES_INTERVAL=60
-      - POSTGRES_TCP_KEEPALIVES_COUNT=10
-    ports:
-      - 5432:5432
-    volumes:
-      - data:/var/lib/postgresql/data
-    restart: always
-volumes:
-    data:
+# fly.toml app configuration file generated for sistemadereservasdesalas on 2026-01-02T16:44:33Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'sistemadereservasdesalas'
+primary_region = 'lhr'
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 1024
